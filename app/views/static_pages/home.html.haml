@@ -1,0 +1,16 @@
+.grid.text-center
+  = form_with(url: "/", method: "get") do |f|
+    %p Enter a flickr ID to see photos
+
+    = f.text_field :user_id, placeholder: "Enter User ID"
+    = button_tag(type: "submit") do
+      .px-3.py.bg-green-500.text-white.rounded-md.hover:bg-green-300.cursor-pointer
+        Search
+.grid.grid-cols-4.m-20
+  - unless @photos.size.zero?
+    
+    - @photos.each do |p|
+      .hover:opacity-50.mt-3
+        = link_to(image_tag(Flickr.url_q(p)), Flickr.url_photopage(p))
+  - else
+    %h4 This user has no photos
